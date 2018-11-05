@@ -15,12 +15,13 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-
+var turretSpace = 2;
 var path;
 var turrets;
 var enemies;
+var turretButton = false;
 
-var ENEMY_SPEED = 1/10000;
+var ENEMY_SPEED = 5/10000;
 
 var BULLET_DAMAGE = 50;
 
@@ -31,7 +32,7 @@ var map =  [[ 0,-1, 0, 0, 0, 0, 0, 0, 0, 0],
             [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
             [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
             [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
-            [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0]];
+            [ 0, -1, 0, 0, 0, 0, 0,-1, 0, 0]];
 
 function preload() {    
     this.load.atlas('sprites', 'assets/spritesheet.png', 'assets/spritesheet.json');
@@ -49,7 +50,7 @@ var Enemy = new Phaser.Class({
             Phaser.GameObjects.Image.call(this, scene, 0, 0, 'sprites', 'enemy');
 
             this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
-            this.hp = 100;
+            this.hp = 500;
         },
 
         startOnPath: function ()
@@ -104,9 +105,8 @@ function getEnemy(x, y, distance) {
 } 
 
 var Turret = new Phaser.Class({
-
         Extends: Phaser.GameObjects.Image,
-
+        
         initialize:
 
         function Turret (scene)
@@ -120,20 +120,28 @@ var Turret = new Phaser.Class({
             this.x = j * 64 + 64/2;
             map[i][j] = 1;            
         },
+        
         fire: function() {
-            var enemy = getEnemy(this.x, this.y, 100);
+            // turret.distance for enemy targeting
+            var enemy = getEnemy(this.x, this.y, 500);
             if(enemy) {
                 var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
-                addBullet(this.x, this.y, angle);
+                if (turretSpace%15 === 0) {
+                    addBullet(this.x, this.y, angle);
+                    turretSpace++;
+                } else {
+                    turretSpace++;
+                };
+                
                 this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
             }
         },
         update: function (time, delta)
         {
-            // time to shoot
+            // time to shoot, turret.speed interval for bullets
             if(time > this.nextTic) {
                 this.fire();
-                this.nextTic = time + 1000;
+                this.nextTic = time + 50;
             }
         }
 });
@@ -152,7 +160,7 @@ var Bullet = new Phaser.Class({
             this.incY = 0;
             this.lifespan = 0;
 
-            this.speed = Phaser.Math.GetSpeed(600, 1);
+            this.speed = Phaser.Math.GetSpeed(100, 1);
         },
 
         fire: function (x, y, angle)
@@ -168,7 +176,7 @@ var Bullet = new Phaser.Class({
             this.dx = Math.cos(angle);
             this.dy = Math.sin(angle);
 
-            this.lifespan = 300;
+            this.lifespan = 6000;
         },
 
         update: function (time, delta)
@@ -213,7 +221,12 @@ function create() {
   bullets = this.physics.add.group({classType: Bullet, runChildUpdate: true});
 
   this.physics.add.overlap(enemies, bullets, damageEnemy);
-}
+  const helloButton = this.add.image(100, 490, 'bullet');
+    helloButton.setInteractive();
+
+    helloButton.on('pointerdown', () => { turretButton = true; });
+  }
+
 
 function damageEnemy(enemy, bullet) {  
     // only if both enemy and bullet are alive
@@ -266,13 +279,14 @@ function canPlaceTurret(i, j) {
 function placeTurret(pointer) {
     var i = Math.floor(pointer.y/64);
     var j = Math.floor(pointer.x/64);
-    if(canPlaceTurret(i, j)) {
+    if(canPlaceTurret(i, j) && turretButton ==true ) {
         var turret = turrets.get();
         if (turret)
         {
             turret.setActive(true);
             turret.setVisible(true);
             turret.place(i, j);
+            turretButton = false;
         }   
     }
 }
