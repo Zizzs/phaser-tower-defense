@@ -56,8 +56,8 @@ var Enemy = new Phaser.Class({
             this.setVisible(false);
             life -= 5;
             lifeText.setText("Life: " + life);
-            removeEnemy = enemies.children.entries;
-            removeEnemy.shift();
+            // removeEnemy = enemies.children.entries;
+            // removeEnemy.shift();
         }
     }
 

@@ -8,6 +8,7 @@ var config = {
     },
     scene: {
         key: 'main',
+       
         preload: preload,
         create: create,
         update: update
@@ -24,9 +25,10 @@ var gold = 300;
 var goldText;
 var life = 100;
 var lifeText;
+var startgame = false;
 var gameOver = false;
 
-var ENEMY_SPEED = 2/10000;
+var ENEMY_SPEED = 1/10000;
 
 var BULLET_DAMAGE = 50;
 
@@ -53,16 +55,21 @@ var map =  [[ 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 function preload() {    
     //this.load.atlas('sprites', 'assets/spritesheet.png', 'assets/spritesheet.json');
+    this.load.image('mapOne', 'assets/MapOne.png');
     this.load.image('bullet', 'assets/bullet.png');
     this.load.image('tower', 'assets/tower.png');
     this.load.image('enemy', 'assets/enemy.png');
     this.load.image('towerOneButton', 'assets/towerOneButton.png');
     this.load.image('uibar', 'assets/bottombar.png');
-    
-}
+    this.load.image('startButton', 'assets/startbutton.png');
 
- 
+   
+   
+
+};
+
 function create() {
+    this.add.image(400,300, 'mapOne');
   // this graphics element is only for visualization,
   // its not related to our path
   var graphics = this.add.graphics();
@@ -96,6 +103,10 @@ function create() {
     
     goldText = this.add.text(630, 565, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
     lifeText = this.add.text(630,30, 'Life: ' + life, {fontSize: '28px', fill: '#999' });
+
+    const startButton = this.add.image(400, 300, 'startButton');
+    startButton.setInteractive();
+    startButton.on('pointerdown', () => { startgame = true });
  
 }
 
@@ -148,6 +159,15 @@ function update(time, delta) {
 
             this.nextEnemy = time + 500;
         }       
+    // } else if (enemies.children.entries.length === 5 && this.enemy.children.entries.active === false) {
+    //     enemies.children.entries = [];
+    // }
+    }
+
+    for (var i=0; i < enemies.children.entries.length; i++) {
+        if (enemies.children.entries[i].active === false) {
+            enemies.children.entries.shift();
+        }
     }
     endGame();
 }
