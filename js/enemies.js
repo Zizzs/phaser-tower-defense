@@ -38,6 +38,7 @@ var Enemy = new Phaser.Class({
     update: function (time, delta)
     {
         if(gameOver){
+            
             return;
         }
         // move the t point along the path, 0 is the start and 0 is the end
@@ -54,7 +55,7 @@ var Enemy = new Phaser.Class({
         {
             this.setActive(false);
             this.setVisible(false);
-            life -= 5;
+            life -= 20;
             lifeText.setText("Life: " + life);
             // removeEnemy = enemies.children.entries;
             // removeEnemy.shift();

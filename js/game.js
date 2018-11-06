@@ -28,7 +28,7 @@ var lifeText;
 var startgame = false;
 var gameOver = false;
 
-var ENEMY_SPEED = 1/10000;
+var ENEMY_SPEED = 3/10000;
 
 var BULLET_DAMAGE = 50;
 
@@ -62,13 +62,15 @@ function preload() {
     this.load.image('towerOneButton', 'assets/towerOneButton.png');
     this.load.image('uibar', 'assets/bottombar.png');
     this.load.image('startButton', 'assets/startbutton.png');
+    this.load.image('gameOver', 'assets/gameover.jpg');
 
-   
    
 
 };
 
+
 function create() {
+    game.scene.pause("main");
     this.add.image(400,300, 'mapOne');
   // this graphics element is only for visualization,
   // its not related to our path
@@ -103,11 +105,14 @@ function create() {
     
     goldText = this.add.text(630, 565, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
     lifeText = this.add.text(630,30, 'Life: ' + life, {fontSize: '28px', fill: '#999' });
-
     const startButton = this.add.image(400, 300, 'startButton');
     startButton.setInteractive();
-    startButton.on('pointerdown', () => { startgame = true });
+    startButton.on('pointerdown', function() {
+        startgame = true;
+        startButton.destroy();
+    })
  
+    
 }
 
 
@@ -139,13 +144,20 @@ function drawGrid(graphics) {
 }
 
 function update(time, delta) { 
-
+   
     if(gameOver) {
+        const gameOverButton = this.add.image(400, 300, 'gameOver');
+        gameOverButton.setInteractive();
+        gameOverButton.on('pointerdown', function() {
+            
+            gameOverButton.destroy();
+            location.reload();
         return;
-    }
+    })
+}
     // if its time for the next enemy
 
-    if (time > this.nextEnemy && enemies.children.entries.length < 5)
+    if (time > this.nextEnemy && enemies.children.entries.length < 5 && startgame ===true)
     {
         var enemy = enemies.get();
         
@@ -166,7 +178,7 @@ function update(time, delta) {
 
     for (var i=0; i < enemies.children.entries.length; i++) {
         if (enemies.children.entries[i].active === false) {
-            enemies.children.entries.shift();
+            enemies.children.entries.splice(i, 1);
         }
     }
     endGame();

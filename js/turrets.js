@@ -35,6 +35,10 @@ var Turret = new Phaser.Class({
             this.fire();
             this.nextTic = time + 900;
         }
+        // if(gameOver== true){
+        //     turret.destroy();
+        // }
+        
     }
 });
 
