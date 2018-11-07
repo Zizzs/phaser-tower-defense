@@ -139,8 +139,8 @@ function create() {
 
 
     
-    goldText = this.add.text(630, 565, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
-    lifeText = this.add.text(630,30, 'Life: ' + life, {fontSize: '28px', fill: '#FEFE54' });
+    goldText = this.add.text(950, 880, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
+    lifeText = this.add.text(950 ,30, 'Life: ' + life, {fontSize: '28px', fill: '#FEFE54' });
     const startButton = this.add.image(400, 300, 'startButton');
     startButton.setInteractive();
     startButton.on('pointerdown', function() {
