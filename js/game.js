@@ -119,12 +119,12 @@ function create() {
   turrets = this.add.group({ classType: Turret, runChildUpdate: true});
   arrowTurrets = this.add.group({ classType: ArrowTurret, runChildUpdate: true});
 
-  const turretOneButton = this.add.image(40, 568, 'towerOneButton');
+  const turretOneButton = this.add.image(40, 890, 'towerOneButton');
   turretOneButton.setInteractive();
   turretOneButton.on('pointerdown', () => { turretButton = true; });
   this.input.on('pointerdown', placeTurret);
 
-  const turretTwoButton = this.add.image(120, 568, 'towerTwoButton');
+  const turretTwoButton = this.add.image(120, 890, 'towerTwoButton');
   turretTwoButton.setInteractive();
   turretTwoButton.on('pointerdown', () => { turret2Button = true; });
   this.input.on('pointerdown', placeTurret2);
