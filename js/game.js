@@ -101,10 +101,22 @@ function create() {
 
   // the path for our enemies
   // parameters are the start x and y of our paths
-  path = this.add.path(160, -32);
-  path.lineTo(160, 192);
-  path.lineTo(480, 192);
-  path.lineTo(480, 620);
+  path = this.add.path(200, -25);
+  path.lineTo(200, 300);
+  path.lineTo(400, 300);
+  path.lineTo(400, 600);
+  path.lineTo(100, 600);
+  path.lineTo(100, 1000);
+  path.lineTo(600, 1000);
+  path.lineTo(600, 200);
+  path.lineTo(800, 200);
+  path.lineTo(800, 1000);
+  path.lineTo(1500, 1000);
+  path.lineTo(1500, 700);
+  path.lineTo(1000, 700);
+  path.lineTo(1000, 300);
+  path.lineTo(1400, 300);
+  path.lineTo(1400, -25);
   
   this.add.image(400,890, 'uibar');
 
