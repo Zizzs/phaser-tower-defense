@@ -21,6 +21,7 @@ var path;
 var turrets;
 var enemies;
 var turretButton = false;
+var turret2Button = false;
 var gold = 300;
 var goldText;
 var life = 100;
@@ -28,9 +29,11 @@ var lifeText;
 var startgame = false;
 var gameOver = false;
 
-var ENEMY_SPEED = 3/10000;
 
-var BULLET_DAMAGE = 50;
+var ENEMY_SPEED = 1/20000;
+
+
+
 
 var map =  [[ 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [ 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -57,12 +60,16 @@ function preload() {
     //this.load.atlas('sprites', 'assets/spritesheet.png', 'assets/spritesheet.json');
     this.load.image('mapOne', 'assets/MapOne.png');
     this.load.image('bullet', 'assets/bullet.png');
+    this.load.image('arrow', 'assets/arrow.png');
     this.load.image('tower', 'assets/tower.png');
+    this.load.image('tower2', 'assets/tower2.png');
     this.load.image('enemy', 'assets/enemy.png');
     this.load.image('towerOneButton', 'assets/towerOneButton.png');
+    this.load.image('towerTwoButton', 'assets/towerTwoButton.png');
     this.load.image('uibar', 'assets/bottombar.png');
     this.load.image('startButton', 'assets/startbutton.png');
     this.load.image('gameOver', 'assets/gameover.jpg');
+    
 
    
 
@@ -83,6 +90,8 @@ function create() {
   path.lineTo(160, 192);
   path.lineTo(480, 192);
   path.lineTo(480, 620);
+  
+  this.add.image(400,600, 'uibar');
 
   graphics.lineStyle(3, 0xffffff, 1);
   //visualize the path
@@ -91,17 +100,27 @@ function create() {
   enemies = this.physics.add.group({ classType: Enemy, runChildUpdate: true});
   this.nextEnemy = 0;
 
+  //turrets
   turrets = this.add.group({ classType: Turret, runChildUpdate: true});
 
-  this.input.on('pointerdown', placeTurret);
-  bullets = this.physics.add.group({classType: Bullet, runChildUpdate: true});
-
-  this.physics.add.overlap(enemies, bullets, damageEnemy);
-  this.add.image(400,600, 'uibar');
   const turretOneButton = this.add.image(40, 568, 'towerOneButton');
-    turretOneButton.setInteractive();
-   
-    turretOneButton.on('pointerdown', () => { turretButton = true; });
+  turretOneButton.setInteractive();
+  turretOneButton.on('pointerdown', () => { turretButton = true; });
+
+  const turretTwoButton = this.add.image(120, 568, 'towerTwoButton');
+  turretTwoButton.setInteractive();
+  turretTwoButton.on('pointerdown', () => { turret2Button = true; });
+
+  this.input.on('pointerdown', placeTurret);
+  this.input.on('pointerdown', placeTurret2);
+
+  bullets = this.physics.add.group({classType: Bullet, runChildUpdate: true});
+  arrows = this.physics.add.group({classType: Arrow, runChildUpdate: true});
+
+  this.physics.add.overlap(enemies, bullets, damageEnemyBullet);
+  this.physics.add.overlap(enemies, arrows, damageEnemyArrow);
+
+
     
     goldText = this.add.text(630, 565, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
     lifeText = this.add.text(630,30, 'Life: ' + life, {fontSize: '28px', fill: '#999' });
@@ -118,15 +137,29 @@ function create() {
 
 
 
-function damageEnemy(enemy, bullet) {  
+function damageEnemyBullet(enemy, bullet) {  
     // only if both enemy and bullet are alive
     if (enemy.active === true && bullet.active === true) {
         // we remove the bullet right away
+        var BULLET_DAMAGE = 50;
         bullet.setActive(false);
         bullet.setVisible(false);    
         
         // decrease the enemy hp with BULLET_DAMAGE
         enemy.receiveDamage(BULLET_DAMAGE);
+    }
+}
+
+function damageEnemyArrow(enemy, arrow) {  
+    // only if both enemy and bullet are alive
+    if (enemy.active === true && arrow.active === true) {
+        // we remove the bullet right away
+        var ARROW_DAMAGE = 100;
+        arrow.setActive(false);
+        arrow.setVisible(false);    
+        
+        // decrease the enemy hp with BULLET_DAMAGE
+        enemy.receiveDamage(ARROW_DAMAGE);
     }
 }
 
@@ -197,6 +230,15 @@ function addBullet(x, y, angle) {
         bullet.fire(x, y, angle);
     }
 }
+
+function addArrow(x, y, angle) {
+    var arrow = arrows.get();
+    if (arrow)
+    {
+        arrow.fire(x, y, angle);
+    }
+}
+
 
 function endGame() {
     if (life <= 0 ) {
