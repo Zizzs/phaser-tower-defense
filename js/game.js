@@ -23,7 +23,8 @@ var enemies;
 var roberts;
 var turretButton = false;
 var turret2Button = false;
-var gold = 300;
+var turret3Button = false;
+var gold = 500;
 var goldText;
 var life = 100;
 var lifeText;
@@ -34,6 +35,7 @@ var kills = 0;
 var killArray = [0,50,100,200,400,1000];
 var bulletSound;
 var arrowSound;
+var fastBulletSound;
 var deathSound;
 
 
@@ -89,10 +91,12 @@ function preload() {
     this.load.image('arrow', 'assets/arrow.png');
     this.load.image('tower', 'assets/tower.png');
     this.load.image('tower2', 'assets/tower2.png');
+    this.load.image('tower3', 'assets/fastTower.png');
     this.load.image('enemy', 'assets/enemy.png');
     this.load.image('robert', 'assets/robert1.png');
     this.load.image('towerOneButton', 'assets/towerOneButton.png');
     this.load.image('towerTwoButton', 'assets/towerTwoButton.png');
+    this.load.image('towerThreeButton', 'assets/fastTowerButton.png');
     this.load.image('uibar', 'assets/bottombar.jpg');
     this.load.image('startButton', 'assets/startbutton.jpg');
     this.load.image('gameOver', 'assets/gameover.jpg');
@@ -100,6 +104,7 @@ function preload() {
     // load audio
     this.load.audio('arrow', '/audio/arrow.mp3');
     this.load.audio('bullet', '/audio/bullet.mp3');
+    this.load.audio('fastbullet', '/audio/fastbullet.mp3');
     this.load.audio('death', '/audio/death.mp3');
 
 };
@@ -146,8 +151,8 @@ function create() {
 
   //turrets
   turrets = this.add.group({ classType: Turret, runChildUpdate: true});
- 
   arrowTurrets = this.add.group({ classType: ArrowTurret, runChildUpdate: true});
+  fastTurrets = this.add.group({ classType: FastTurret, runChildUpdate: true});
 
   const turretOneButton = this.add.image(40, 1170, 'towerOneButton');
   turretOneButton.setInteractive();
@@ -158,16 +163,23 @@ function create() {
   turretTwoButton.setInteractive();
   turretTwoButton.on('pointerdown', () => { turret2Button = true; });
   this.input.on('pointerdown', placeTurret2);
+
+  const turretThreeButton = this.add.image(200, 1170, 'towerThreeButton');
+  turretThreeButton.setInteractive();
+  turretThreeButton.on('pointerdown', () => { turret3Button = true; });
+  this.input.on('pointerdown', placeTurret3);
   
   
   bullets = this.physics.add.group({classType: Bullet, runChildUpdate: true});
   arrows = this.physics.add.group({classType: Arrow, runChildUpdate: true});
-  
+  fastbullets = this.physics.add.group({classType:FastBullet, runChildUpdate: true});
 
   this.physics.add.overlap(enemies, bullets, damageEnemyBullet);
   this.physics.add.overlap(enemies, arrows, damageEnemyArrow);
+  this.physics.add.overlap(enemies, fastbullets, damageEnemyFastBullet);
   this.physics.add.overlap(roberts, bullets, damageRobertBullet);
   this.physics.add.overlap(roberts, arrows, damageRobertArrow);
+  this.physics.add.overlap(roberts, fastbullets, damageRobertFastBullet);
 
 
     
@@ -186,6 +198,7 @@ function create() {
      bulletSound = this.sound.add('bullet');
      arrowSound = this.sound.add('arrow');
      deathSound = this.sound.add('death');
+     fastBulletSound = this.sound.add('fastbullet');
   
 }
 
@@ -218,6 +231,19 @@ function damageEnemyArrow(enemy, arrow) {
     }
 }
 
+function damageEnemyFastBullet(enemy, fastbullet) {  
+    // only if both enemy and bullet are alive
+    if (enemy.active === true && fastbullet.active === true) {
+        // we remove the bullet right away
+        var FASTBULLET_DAMAGE = 100;
+        fastbullet.setActive(false);
+        fastbullet.setVisible(false);    
+        
+        // decrease the enemy hp with BULLET_DAMAGE
+        enemy.receiveDamage(FASTBULLET_DAMAGE);
+    }
+}
+
 function damageRobertBullet(robert, bullet) {  
     // only if both robert and bullet are alive
     if (robert.active === true && bullet.active === true) {
@@ -244,6 +270,20 @@ function damageRobertBullet(robert, bullet) {
         
         // decrease the robert hp with BULLET_DAMAGE
         robert.receiveDamage(ARROW_DAMAGE);
+    }
+}
+
+function damageRobertFastBullet(robert, fastbullet) {  
+
+    // only if both robert and bullet are alive
+    if (robert.active === true && fastbullet.active === true) {
+        // we remove the bullet right away
+        var FASTBULLET_DAMAGE = 50;
+        arrow.setActive(false);
+        arrow.setVisible(false);    
+        
+        // decrease the robert hp with BULLET_DAMAGE
+        robert.receiveDamage(FASTBULLET_DAMAGE);
     }
 }
 
@@ -352,6 +392,15 @@ function addArrow(x, y, angle) {
     if (arrow)
     {
         arrow.fire(x, y, angle);
+    }
+}
+
+
+function addFastBullet(x, y, angle) {
+    var fastbullet = fastbullets.get();
+    if (fastbullet)
+    {
+        fastbullet.fire(x, y, angle);
     }
 }
 

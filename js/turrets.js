@@ -128,6 +128,63 @@ var ArrowTurret = new Phaser.Class({
 
 });
 
+var FastTurret = new Phaser.Class({
+    Extends: Phaser.GameObjects.Image,
+    
+    initialize:
+
+    function Turret (scene)
+    {
+        
+            Phaser.GameObjects.Image.call(this, scene, 0, 0,'tower3');
+            this.nextTic = 0;
+            gold -= 500;
+            goldText.setText('Gold: '+ gold);  
+        
+        
+    },
+
+    
+    // we will place the turret according to the grid
+    place: function(i, j) {            
+        this.y = i * 32 + 32/2;
+        this.x = j * 32 + 32/2;
+        map[i][j] = 1;            
+    },
+    
+    fire: function() {
+        // turret.distance for enemy targeting
+        var enemy = getEnemy(this.x, this.y, 100);
+        var robert = getRobert(this.x, this.y, 100);
+
+        if(enemy) {
+            var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
+            addBullet(this.x, this.y, angle);
+            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
+        }
+
+        else if(robert) {
+            var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
+            addBullet(this.x, this.y, angle);
+            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
+        }
+
+    },
+    update: function (time, delta)
+    {
+        // time to shoot, turret.speed interval for bullets
+        if(time > this.nextTic) {
+            this.fire();
+            this.nextTic = time + 100;
+        }
+        // if(gameOver== true){
+        //     turret.destroy();
+        // }
+        
+    }
+});
+
+
 
 
 // aiming turrets at enemies
@@ -178,6 +235,22 @@ function placeTurret(pointer) {
             turret.setVisible(true);
             turret.place(i, j);
             turretButton = false;
+        }   
+    }
+}
+
+//place fast turrets
+function placeTurret3(pointer) {
+    var i = Math.floor(pointer.y/32);
+    var j = Math.floor(pointer.x/32);
+    if(canPlaceTurret(i, j) && turret3Button ==true && gold >= 500) {
+        var fastTurret = fastTurrets.get();
+        if (fastTurret)
+        {
+            fastTurret.setActive(true);
+            fastTurret.setVisible(true);
+            fastTurret.place(i, j);
+            turret3Button = false;
         }   
     }
 }
