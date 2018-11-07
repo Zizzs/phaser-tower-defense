@@ -23,6 +23,7 @@ var Enemy = new Phaser.Class({
             goldText.setText('Gold: '+ gold);    
             kills += 1;
             killCounter.setText("Kills: " + kills)
+            deathSound.play();
         }
     },
     startOnPath: function ()
@@ -106,6 +107,7 @@ var Robert = new Phaser.Class({
             goldText.setText('Gold: '+ gold);    
             kills += 1;
             killCounter.setText("Kills: " + kills)
+            deathSound.play();
         }
     },
     update: function (time, delta)

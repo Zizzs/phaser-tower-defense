@@ -31,6 +31,7 @@ var Bullet = new Phaser.Class({
             this.dy = Math.sin(angle);
 
             this.lifespan = 300;
+            bulletSound.play();
         },
 
         update: function (time, delta)
@@ -83,6 +84,7 @@ var Bullet = new Phaser.Class({
             this.dy = Math.sin(angle);
 
             this.lifespan = 6000;
+            arrowSound.play();
         },
 
         update: function (time, delta)

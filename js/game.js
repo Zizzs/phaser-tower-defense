@@ -32,6 +32,10 @@ var gameOver = false;
 var killCounter;
 var kills = 0;
 var killArray = [0,50,100,200,400,1000];
+var bulletSound;
+var arrowSound;
+var deathSound;
+
 
 
 var ENEMY_SPEED = 1/30000;
@@ -95,7 +99,8 @@ function preload() {
     
     // load audio
     this.load.audio('arrow', '/audio/arrow.mp3');
-   
+    this.load.audio('bullet', '/audio/bullet.mp3');
+    this.load.audio('death', '/audio/death.mp3');
 
 };
 
@@ -178,8 +183,9 @@ function create() {
     })
  
      // add sounds
-     this.sound.add('arrow');
-   
+     bulletSound = this.sound.add('bullet');
+     arrowSound = this.sound.add('arrow');
+     deathSound = this.sound.add('death');
   
 }
 
