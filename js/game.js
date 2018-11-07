@@ -102,20 +102,22 @@ function create() {
 
   //turrets
   turrets = this.add.group({ classType: Turret, runChildUpdate: true});
+  arrowTurrets = this.add.group({ classType: ArrowTurret, runChildUpdate: true});
 
   const turretOneButton = this.add.image(40, 568, 'towerOneButton');
   turretOneButton.setInteractive();
   turretOneButton.on('pointerdown', () => { turretButton = true; });
+  this.input.on('pointerdown', placeTurret);
 
   const turretTwoButton = this.add.image(120, 568, 'towerTwoButton');
   turretTwoButton.setInteractive();
   turretTwoButton.on('pointerdown', () => { turret2Button = true; });
-
-  this.input.on('pointerdown', placeTurret);
   this.input.on('pointerdown', placeTurret2);
-
+  
+  
   bullets = this.physics.add.group({classType: Bullet, runChildUpdate: true});
   arrows = this.physics.add.group({classType: Arrow, runChildUpdate: true});
+  
 
   this.physics.add.overlap(enemies, bullets, damageEnemyBullet);
   this.physics.add.overlap(enemies, arrows, damageEnemyArrow);

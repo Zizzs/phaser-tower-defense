@@ -112,22 +112,23 @@ function getEnemy(x, y, distance) {
 } 
 
 
-
+//place arrow turrets
 function placeTurret2(pointer) {
     var i = Math.floor(pointer.y/32);
     var j = Math.floor(pointer.x/32);
     if(canPlaceTurret(i, j) && turret2Button ==true && gold >= 200) {
-        var turret = turrets.get();
-        if (turret)
+        var arrowTurret = arrowTurrets.get();
+        if (arrowTurret)
         {
-            turret.setActive(true);
-            turret.setVisible(true);
-            turret.place(i, j);
+            arrowTurret.setActive(true);
+            arrowTurret.setVisible(true);
+            arrowTurret.place(i, j);
             turret2Button = false;
         }   
     }
 }
 
+//place bullet turrets
 function placeTurret(pointer) {
     var i = Math.floor(pointer.y/32);
     var j = Math.floor(pointer.x/32);
