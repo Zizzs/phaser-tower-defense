@@ -431,6 +431,13 @@ function update(time, delta) {
         }
     }
 
+    for (var i=0; i < dragons.children.entries.length; i++) {
+        if (dragons.children.entries[i].active === false) {
+            dragons.children.entries.splice(i, 1);
+        }
+    }
+
+
     level = Math.ceil(time/40000);
     levelText.setText("Level: " + level);
 
