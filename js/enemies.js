@@ -19,7 +19,7 @@ var Enemy = new Phaser.Class({
         if(this.hp <= 0) {
             this.setActive(false);
             this.setVisible(false); 
-            gold += 25;
+            gold += 15;
             goldText.setText('Gold: '+ gold);    
             kills += 1;
             killCounter.setText("Kills: " + kills)
@@ -30,7 +30,7 @@ var Enemy = new Phaser.Class({
     {   
         // set the t parameter at the start of the path
         this.follower.t = 0;
-        this.hp = 25*kills;
+        this.hp = 50+(kills*5);
         
         // get x and y of the given t point
         path.getPoint(this.follower.t, this.follower.vec);
@@ -103,7 +103,7 @@ var Robert = new Phaser.Class({
         if(this.hp <= 0) {
             this.setActive(false);
             this.setVisible(false); 
-            gold += 200;
+            gold += 50;
             goldText.setText('Gold: '+ gold);    
             kills += 1;
             killCounter.setText("Kills: " + kills)
