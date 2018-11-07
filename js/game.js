@@ -1,8 +1,8 @@
 var config = {
     type: Phaser.AUTO,
     parent: 'content',
-    width: 800,
-    height: 600,
+    width: 1600,
+    height: 1200,
     physics: {
         default: 'arcade'
     },
@@ -81,7 +81,7 @@ function preload() {
     this.load.image('enemy', 'assets/enemy.png');
     this.load.image('towerOneButton', 'assets/towerOneButton.png');
     this.load.image('towerTwoButton', 'assets/towerTwoButton.png');
-    this.load.image('uibar', 'assets/bottombar.png');
+    this.load.image('uibar', 'assets/bottombar.jpg');
     this.load.image('startButton', 'assets/startbutton.jpg');
     this.load.image('gameOver', 'assets/gameover.jpg');
     
@@ -106,7 +106,7 @@ function create() {
   path.lineTo(480, 192);
   path.lineTo(480, 620);
   
-  this.add.image(400,600, 'uibar');
+  this.add.image(400,890, 'uibar');
 
   graphics.lineStyle(3, 0xffffff, 1);
   //visualize the path
