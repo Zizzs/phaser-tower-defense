@@ -24,7 +24,7 @@ var roberts;
 var turretButton = false;
 var turret2Button = false;
 var turret3Button = false;
-var gold = 500;
+var gold = 300;
 var goldText;
 var life = 100;
 var lifeText;
@@ -32,7 +32,8 @@ var startgame = false;
 var gameOver = false;
 var killCounter;
 var kills = 0;
-var killArray = [0,50,100,200,400,1000];
+var level = 1;
+var levelText;
 var bulletSound;
 var arrowSound;
 var fastBulletSound;
@@ -186,6 +187,7 @@ function create() {
     goldText = this.add.text(950, 1150, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
     lifeText = this.add.text(950 ,30, 'Life: ' + life, {fontSize: '28px', fill: '#FEFE54' });
     killCounter = this.add.text(320, 40, 'Kills: ' + kills, { fontSize: '28px',fontFamily: 'Impact', fill: '#ffbfbf'});
+    levelText = this.add.text(600, 30, 'Level: ' + level, {fontFamily: 'Impact', fontSize: '28px', fill: '#FEFE54' });
 
     const startButton = this.add.image(700, 400, 'startButton');
     startButton.setInteractive();
@@ -235,7 +237,7 @@ function damageEnemyFastBullet(enemy, fastbullet) {
     // only if both enemy and bullet are alive
     if (enemy.active === true && fastbullet.active === true) {
         // we remove the bullet right away
-        var FASTBULLET_DAMAGE = 100;
+        var FASTBULLET_DAMAGE = 70;
         fastbullet.setActive(false);
         fastbullet.setVisible(false);    
         
@@ -264,7 +266,7 @@ function damageRobertBullet(robert, bullet) {
     // only if both robert and bullet are alive
     if (robert.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 150;
+        var ARROW_DAMAGE = 300;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -278,7 +280,7 @@ function damageRobertFastBullet(robert, fastbullet) {
     // only if both robert and bullet are alive
     if (robert.active === true && fastbullet.active === true) {
         // we remove the bullet right away
-        var FASTBULLET_DAMAGE = 50;
+        var FASTBULLET_DAMAGE = 70;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -330,7 +332,7 @@ function update(time, delta) {
             // place the enemy at the start of the path
             enemy.startOnPath();
 
-            this.nextEnemy = time + (5000/(1+(.07*kills)));
+            this.nextEnemy = time + (5000/(1+(1.2*level)));
 
         }
     }       
@@ -368,6 +370,9 @@ function update(time, delta) {
             roberts.children.entries.splice(i, 1);
         }
     }
+
+    level = Math.ceil(time/40000);
+    levelText.setText("Level: " + level);
 
     
     endGame();
