@@ -67,6 +67,9 @@ function ArrowTurret (scene)
             this.nextTic = 0;
             gold -= 200;
             goldText.setText('Gold: '+ gold); 
+            if(gameOver===true){
+                turrets.destroy();
+            }
         
     },
 
