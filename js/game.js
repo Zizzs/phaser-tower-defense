@@ -141,7 +141,7 @@ function create() {
     
     goldText = this.add.text(950, 880, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
     lifeText = this.add.text(950 ,30, 'Life: ' + life, {fontSize: '28px', fill: '#FEFE54' });
-    const startButton = this.add.image(400, 300, 'startButton');
+    const startButton = this.add.image(600, 400, 'startButton');
     startButton.setInteractive();
     startButton.on('pointerdown', function() {
         startgame = true;
@@ -196,7 +196,7 @@ function drawGrid(graphics) {
 function update(time, delta) { 
    
     if(gameOver) {
-        const gameOverButton = this.add.image(400, 300, 'gameOver');
+        const gameOverButton = this.add.image(600, 400, 'gameOver');
         gameOverButton.setInteractive();
         gameOverButton.on('pointerdown', function() {
             

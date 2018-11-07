@@ -12,7 +12,7 @@ var Bullet = new Phaser.Class({
             this.incY = 0;
             this.lifespan = 0;
 
-            this.speed = Phaser.Math.GetSpeed(500, 1);
+            this.speed = Phaser.Math.GetSpeed(700, 1);
         },
 
         
@@ -30,7 +30,7 @@ var Bullet = new Phaser.Class({
             this.dx = Math.cos(angle);
             this.dy = Math.sin(angle);
 
-            this.lifespan = 6000;
+            this.lifespan = 300;
         },
 
         update: function (time, delta)
