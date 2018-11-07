@@ -128,7 +128,7 @@ function create() {
   path.lineTo(1400, 300);
   path.lineTo(1400, -25);
   
-  this.add.image(400,1150, 'uibar');
+  this.add.image(400,1180, 'uibar');
 
   graphics.lineStyle(3, 0xffffff, 1);
   //visualize the path
@@ -144,12 +144,12 @@ function create() {
   turrets = this.add.group({ classType: Turret, runChildUpdate: true});
   arrowTurrets = this.add.group({ classType: ArrowTurret, runChildUpdate: true});
 
-  const turretOneButton = this.add.image(40, 1150, 'towerOneButton');
+  const turretOneButton = this.add.image(40, 1170, 'towerOneButton');
   turretOneButton.setInteractive();
   turretOneButton.on('pointerdown', () => { turretButton = true; });
   this.input.on('pointerdown', placeTurret);
 
-  const turretTwoButton = this.add.image(120, 1150, 'towerTwoButton');
+  const turretTwoButton = this.add.image(120, 1170, 'towerTwoButton');
   turretTwoButton.setInteractive();
   turretTwoButton.on('pointerdown', () => { turret2Button = true; });
   this.input.on('pointerdown', placeTurret2);
@@ -166,9 +166,9 @@ function create() {
 
 
     
-    goldText = this.add.text(950, 1130, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
+    goldText = this.add.text(950, 1150, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
     lifeText = this.add.text(950 ,30, 'Life: ' + life, {fontSize: '28px', fill: '#FEFE54' });
-    const startButton = this.add.image(600, 400, 'startButton');
+    const startButton = this.add.image(700, 400, 'startButton');
     startButton.setInteractive();
     startButton.on('pointerdown', function() {
         startgame = true;
@@ -253,7 +253,7 @@ function drawGrid(graphics) {
 function update(time, delta) { 
    
     if(gameOver) {
-        const gameOverButton = this.add.image(600, 400, 'gameOver');
+        const gameOverButton = this.add.image(700, 400, 'gameOver');
         gameOverButton.setInteractive();
         gameOverButton.on('pointerdown', function() {
             
