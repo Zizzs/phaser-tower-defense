@@ -121,7 +121,7 @@ function create() {
   path.lineTo(1400, 300);
   path.lineTo(1400, -25);
   
-  this.add.image(400,890, 'uibar');
+  this.add.image(400,1150, 'uibar');
 
   graphics.lineStyle(3, 0xffffff, 1);
   //visualize the path
@@ -136,12 +136,12 @@ function create() {
   turrets = this.add.group({ classType: Turret, runChildUpdate: true});
   arrowTurrets = this.add.group({ classType: ArrowTurret, runChildUpdate: true});
 
-  const turretOneButton = this.add.image(40, 890, 'towerOneButton');
+  const turretOneButton = this.add.image(40, 1150, 'towerOneButton');
   turretOneButton.setInteractive();
   turretOneButton.on('pointerdown', () => { turretButton = true; });
   this.input.on('pointerdown', placeTurret);
 
-  const turretTwoButton = this.add.image(120, 890, 'towerTwoButton');
+  const turretTwoButton = this.add.image(120, 1150, 'towerTwoButton');
   turretTwoButton.setInteractive();
   turretTwoButton.on('pointerdown', () => { turret2Button = true; });
   this.input.on('pointerdown', placeTurret2);
@@ -158,7 +158,7 @@ function create() {
 
 
     
-    goldText = this.add.text(950, 880, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
+    goldText = this.add.text(950, 1130, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
     lifeText = this.add.text(950 ,30, 'Life: ' + life, {fontSize: '28px', fill: '#FEFE54' });
     const startButton = this.add.image(600, 400, 'startButton');
     startButton.setInteractive();
@@ -226,14 +226,14 @@ function damageRobertBullet(robert, bullet) {
 
 
 function drawGrid(graphics) {
-    graphics.lineStyle(1, 0x0000ff, 0.8);
-    for(var i = 0; i < 19; i++) {
+    graphics.lineStyle(1, 0x000000, 0.45);
+    for(var i = 0; i < 38; i++) {
         graphics.moveTo(0, i * 32);
-        graphics.lineTo(800, i * 32);
+        graphics.lineTo(1600, i * 32);
     }
-    for(var j = 0; j < 25; j++) {
+    for(var j = 0; j < 50; j++) {
         graphics.moveTo(j * 32, 0);
-        graphics.lineTo(j * 32, 600);
+        graphics.lineTo(j * 32, 1200);
     }
     graphics.strokePath();
 }
