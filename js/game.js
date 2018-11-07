@@ -21,6 +21,7 @@ var path;
 var turrets;
 var enemies;
 var roberts;
+var dragons;
 var turretButton = false;
 var turret2Button = false;
 var turret3Button = false;
@@ -43,6 +44,7 @@ var deathSound;
 
 var ENEMY_SPEED = 1/40000;
 var ROBERT_SPEED = 1/120000;
+var DRAGON_SPEED = 1/80000;
 
 
 
@@ -95,6 +97,7 @@ function preload() {
     this.load.image('tower3', 'assets/fastTower.png');
     this.load.image('enemy', 'assets/enemy.png');
     this.load.image('robert', 'assets/robert1.png');
+    this.load.image('dragon', 'assets/dragon.png');
     this.load.image('towerOneButton', 'assets/towerOneButton.png');
     this.load.image('towerTwoButton', 'assets/towerTwoButton.png');
     this.load.image('towerThreeButton', 'assets/fastTowerButton.png');
@@ -149,6 +152,8 @@ function create() {
   this.nextEnemy = 0;
   roberts = this.physics.add.group({ classType: Robert, runChildUpdate: true});
   this.nextRobert = 0;
+  dragons = this.physics.add.group({ classType: Dragon, runChildUpdate: true});
+  this.nextDragon = 0;
 
   //turrets
   turrets = this.add.group({ classType: Turret, runChildUpdate: true});
@@ -181,6 +186,9 @@ function create() {
   this.physics.add.overlap(roberts, bullets, damageRobertBullet);
   this.physics.add.overlap(roberts, arrows, damageRobertArrow);
   this.physics.add.overlap(roberts, fastbullets, damageRobertFastBullet);
+  this.physics.add.overlap(dragons, bullets, damageDragonBullet);
+  this.physics.add.overlap(dragons, arrows, damageDragonArrow);
+  this.physics.add.overlap(dragons, fastbullets, damageDragonFastBullet);
 
 
     
@@ -281,14 +289,51 @@ function damageRobertFastBullet(robert, fastbullet) {
     if (robert.active === true && fastbullet.active === true) {
         // we remove the bullet right away
         var FASTBULLET_DAMAGE = 70;
-        arrow.setActive(false);
-        arrow.setVisible(false);    
+        fastbullet.setActive(false);
+        fastbullet.setVisible(false);    
         
         // decrease the robert hp with BULLET_DAMAGE
         robert.receiveDamage(FASTBULLET_DAMAGE);
     }
 }
 
+function damageDragonBullet(dragon, bullet) {  
+    // only if both robert and bullet are alive
+    if (dragon.active === true && bullet.active === true) {
+        // we remove the bullet right away
+        var BULLET_DAMAGE = 50;
+        bullet.setActive(false);
+        bullet.setVisible(false);    
+        
+        // decrease the robert hp with BULLET_DAMAGE
+        dragon.receiveDamage(BULLET_DAMAGE);
+    }
+}
+  function damageDragonArrow(dragon, arrow) {  
+     // only if both robert and bullet are alive
+    if (dragon.active === true && arrow.active === true) {
+        // we remove the bullet right away
+        var ARROW_DAMAGE = 100;
+        arrow.setActive(false);
+        arrow.setVisible(false);    
+        
+        // decrease the robert hp with BULLET_DAMAGE
+        dragon.receiveDamage(ARROW_DAMAGE);
+    }
+}
+function damageDragonFastBullet(dragon, fastbullet) {  
+
+    // only if both robert and bullet are alive
+    if (dragon.active === true && fastbullet.active === true) {
+        // we remove the bullet right away
+        var FASTBULLET_DAMAGE = 70;
+        fastbullet.setActive(false);
+        fastbullet.setVisible(false);    
+        
+        // decrease the robert hp with BULLET_DAMAGE
+        dragon.receiveDamage(FASTBULLET_DAMAGE);
+    }
+}
 
 function drawGrid(graphics) {
     graphics.lineStyle(1, 0x000000, 0.45);
@@ -350,6 +395,21 @@ function update(time, delta) {
             robert.startOnPath();
  
             this.nextRobert = time + (10000/(1+(0.7*kills)));
+        }
+    }
+
+    if (time > this.nextDragon && dragons.children.entries.length < 5 && startgame ===true)
+    {
+        var dragon = dragons.get();
+        
+        if (dragon)
+        {
+            dragon.setActive(true);
+            dragon.setVisible(true);
+             // place the robert at the start of the path
+            dragon.startOnPath();
+ 
+            this.nextDragon = time + 1750;
         }
     }
     // } else if (enemies.children.entries.length === 5 && this.enemy.children.entries.active === false) {
