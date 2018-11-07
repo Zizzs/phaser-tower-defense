@@ -30,6 +30,8 @@ var lifeText;
 var startgame = false;
 var gameOver = false;
 
+
+
 var ENEMY_SPEED = 1/30000;
 var ROBERT_SPEED = 1/60000;
 
@@ -126,7 +128,7 @@ function create() {
 
   graphics.lineStyle(3, 0xffffff, 1);
   //visualize the path
-  path.draw(graphics);
+  
 
   //enemies
   enemies = this.physics.add.group({ classType: Enemy, runChildUpdate: true});
@@ -136,6 +138,7 @@ function create() {
 
   //turrets
   turrets = this.add.group({ classType: Turret, runChildUpdate: true});
+ 
   arrowTurrets = this.add.group({ classType: ArrowTurret, runChildUpdate: true});
 
   const turretOneButton = this.add.image(40, 1170, 'towerOneButton');
