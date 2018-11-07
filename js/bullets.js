@@ -75,6 +75,7 @@ var Bullet = new Phaser.Class({
             //  Bullets fire from the middle of the screen to the given x/y
             this.setPosition(x, y);
             
+          
         //  we don't need to rotate the bullets as they are round
         //    this.setRotation(angle);
 
