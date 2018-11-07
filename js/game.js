@@ -67,7 +67,7 @@ function preload() {
     this.load.image('towerOneButton', 'assets/towerOneButton.png');
     this.load.image('towerTwoButton', 'assets/towerTwoButton.png');
     this.load.image('uibar', 'assets/bottombar.png');
-    this.load.image('startButton', 'assets/startbutton.png');
+    this.load.image('startButton', 'assets/startbutton.jpg');
     this.load.image('gameOver', 'assets/gameover.jpg');
     
 
@@ -125,7 +125,7 @@ function create() {
 
     
     goldText = this.add.text(630, 565, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
-    lifeText = this.add.text(630,30, 'Life: ' + life, {fontSize: '28px', fill: '#999' });
+    lifeText = this.add.text(630,30, 'Life: ' + life, {fontSize: '28px', fill: '#FEFE54' });
     const startButton = this.add.image(400, 300, 'startButton');
     startButton.setInteractive();
     startButton.on('pointerdown', function() {
