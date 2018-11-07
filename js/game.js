@@ -75,7 +75,7 @@ var map =  [[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 
 function preload() {    
     //this.load.atlas('sprites', 'assets/spritesheet.png', 'assets/spritesheet.json');
-    this.load.image('mapOne', 'assets/MapTwo.png');
+    this.load.image('mapOne', 'assets/updatedMap.png');
     this.load.image('bullet', 'assets/bullet.png');
     this.load.image('arrow', 'assets/arrow.png');
     this.load.image('tower', 'assets/tower.png');
@@ -96,7 +96,7 @@ function preload() {
 
 function create() {
     game.scene.pause("main");
-    this.add.image(400,300, 'mapOne');
+    this.add.image(800,600, 'mapOne');
   // this graphics element is only for visualization,
   // its not related to our path
   var graphics = this.add.graphics();
