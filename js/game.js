@@ -30,8 +30,14 @@ var lifeText;
 var startgame = false;
 var gameOver = false;
 
-var ENEMY_SPEED = 1/20000;
-var ROBERT_SPEED = 1/10000;
+var ENEMY_SPEED = 1/30000;
+var ROBERT_SPEED = 1/60000;
+
+
+
+
+
+
 
 var map =  [[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -71,6 +77,7 @@ var map =  [[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+
 
 
 function preload() {    
@@ -127,6 +134,7 @@ function create() {
   //visualize the path
   path.draw(graphics);
 
+  //enemies
   enemies = this.physics.add.group({ classType: Enemy, runChildUpdate: true});
   this.nextEnemy = 0;
   roberts = this.physics.add.group({ classType: Robert, runChildUpdate: true});
@@ -171,7 +179,7 @@ function create() {
 }
 
 
-
+//Damage creep functions
 
 function damageEnemyBullet(enemy, bullet) {  
     // only if both enemy and bullet are alive
@@ -211,7 +219,11 @@ function damageRobertBullet(robert, bullet) {
         robert.receiveDamage(BULLET_DAMAGE);
     }
 }
+
+
+
  function damageRobertArrow(robert, arrow) {  
+
     // only if both robert and bullet are alive
     if (robert.active === true && arrow.active === true) {
         // we remove the bullet right away
@@ -248,9 +260,9 @@ function update(time, delta) {
             gameOverButton.destroy();
             location.reload();
         return;
-    })
-}
-    // if its time for the next enemy
+        })
+    }
+    
 
     if (time > this.nextEnemy && enemies.children.entries.length < 5 && startgame ===true)
     {
@@ -265,21 +277,44 @@ function update(time, delta) {
             enemy.startOnPath();
 
             this.nextEnemy = time + 500;
-        }       
+
+        }
+    }       
+
+    if (time > this.nextRobert && roberts.children.entries.length < 5 && startgame ===true)
+    {
+        var robert = roberts.get();
+        
+        if (robert)
+        {
+            robert.setActive(true);
+            robert.setVisible(true);
+
+            // place the robert at the start of the path
+            robert.startOnPath();
+ 
+            this.nextRobert = time + 1750;
+        }
     }
+    // } else if (enemies.children.entries.length === 5 && this.enemy.children.entries.active === false) {
+    //     enemies.children.entries = [];
+    // }
+           
+
+
 
     for (var i=0; i < enemies.children.entries.length; i++) {
         if (enemies.children.entries[i].active === false) {
             enemies.children.entries.splice(i, 1);
         }
     }
+
     for (var i=0; i < roberts.children.entries.length; i++) {
         if (roberts.children.entries[i].active === false) {
             roberts.children.entries.splice(i, 1);
         }
     }
 
-    
     endGame();
 }
 
@@ -309,7 +344,5 @@ function addArrow(x, y, angle) {
 function endGame() {
     if (life <= 0 ) {
     gameOver = true;
-    //we need to insert a pop up Game Over, button with refresh to start over
     }
 }
-
