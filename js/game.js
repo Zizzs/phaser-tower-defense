@@ -39,6 +39,7 @@ var bulletSound;
 var arrowSound;
 var fastBulletSound;
 var deathSound;
+var turretOneButton;
 
 
 
@@ -140,6 +141,7 @@ function create() {
   path.lineTo(1000, 300);
   path.lineTo(1400, 300);
   path.lineTo(1400, -25);
+
   
   this.add.image(400,1180, 'uibar');
 
@@ -160,21 +162,31 @@ function create() {
   arrowTurrets = this.add.group({ classType: ArrowTurret, runChildUpdate: true});
   fastTurrets = this.add.group({ classType: FastTurret, runChildUpdate: true});
 
-  const turretOneButton = this.add.image(40, 1170, 'towerOneButton');
+  turretOneButton = this.add.image(40, 1170, 'towerOneButton');
   turretOneButton.setInteractive();
-  turretOneButton.on('pointerdown', () => { turretButton = true; turret2Button = false; turret3Button = false;});
+  turretOneButton.on('pointerdown', () => { turretButton = true; turret2Button = false; turret3Button = false;
+        turretOneButton.tint = 0xfff132;
+        turretTwoButton.tint = 0xffffff;
+        turretThreeButton.tint = 0xffffff;
+      });
   this.input.on('pointerdown', placeTurret);
 
-  const turretTwoButton = this.add.image(120, 1170, 'towerTwoButton');
+  turretTwoButton = this.add.image(120, 1170, 'towerTwoButton');
   turretTwoButton.setInteractive();
-  turretTwoButton.on('pointerdown', () => { turret2Button = true; turretButton = false; turret3Button = false;});
+  turretTwoButton.on('pointerdown', () => { turret2Button = true; turretButton = false; turret3Button = false;
+    turretTwoButton.tint = 0xfff132;
+    turretOneButton.tint = 0xffffff;
+    turretThreeButton.tint = 0xffffff;});
   this.input.on('pointerdown', placeTurret2);
 
-  const turretThreeButton = this.add.image(200, 1170, 'towerThreeButton');
+  turretThreeButton = this.add.image(200, 1170, 'towerThreeButton');
   turretThreeButton.setInteractive();
-  turretThreeButton.on('pointerdown', () => { turret3Button = true; turret2Button = false; turretButton = false;});
+  turretThreeButton.on('pointerdown', () => { turret3Button = true; turret2Button = false; turretButton = false;
+    turretThreeButton.tint = 0xfff132;
+    turretTwoButton.tint = 0xffffff;
+    turretOneButton.tint = 0xffffff;});
   this.input.on('pointerdown', placeTurret3);
-  
+
   
   bullets = this.physics.add.group({classType: Bullet, runChildUpdate: true});
   arrows = this.physics.add.group({classType: Arrow, runChildUpdate: true});
@@ -457,6 +469,8 @@ function update(time, delta) {
         turret2Button = false;
 
       });
+
+
     endGame();
 }
 

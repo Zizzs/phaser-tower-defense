@@ -248,6 +248,8 @@ function placeTurret2(pointer) {
             arrowTurret.setVisible(true);
             arrowTurret.place(i, j);
             turret2Button = false;
+            turretTwoButton.tint = 0xffffff;
+
         }   
     }
 }
@@ -264,6 +266,7 @@ function placeTurret(pointer) {
             turret.setVisible(true);
             turret.place(i, j);
             turretButton = false;
+            turretOneButton.tint = 0xffffff;
         }   
     }
 }
@@ -280,6 +283,8 @@ function placeTurret3(pointer) {
             fastTurret.setVisible(true);
             fastTurret.place(i, j);
             turret3Button = false;
+            turretThreeButton.tint = 0xffffff;
+
         }   
     }
 }
