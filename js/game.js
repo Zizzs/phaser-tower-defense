@@ -39,11 +39,7 @@ var bulletSound;
 var arrowSound;
 var fastBulletSound;
 var deathSound;
-<<<<<<< HEAD
 var upgrade = 1;
-=======
-var turretOneButton;
->>>>>>> 238c115e3b7f2bd616432646fde11964ff1abcce
 
 
 
@@ -91,7 +87,6 @@ var map =  [[ 0, 0, 0, 0, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, 0, 0, 0, 0, 0, 
     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
     [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]];
-
 function preload() {    
     // load images
     this.load.image('mapOne', 'assets/updatedMap.png');
@@ -191,8 +186,6 @@ function create() {
     turretTwoButton.tint = 0xffffff;
     turretOneButton.tint = 0xffffff;});
   this.input.on('pointerdown', placeTurret3);
-<<<<<<< HEAD
-  
   const upgradeButton = this.add.image(400, 1170, 'upgrade');
   upgradeButton.setInteractive();
       upgradeButton.on('pointerdown', function() {
@@ -202,10 +195,7 @@ function create() {
           goldText.setText('Gold: '+ gold);
         }
   })
-  
-=======
 
->>>>>>> 238c115e3b7f2bd616432646fde11964ff1abcce
   
   bullets = this.physics.add.group({classType: Bullet, runChildUpdate: true});
   arrows = this.physics.add.group({classType: Arrow, runChildUpdate: true});
@@ -443,12 +433,7 @@ function update(time, delta) {
             this.nextDragon = time + (10000/(1+(0.3*kills)));
         }
     }
-    // } else if (enemies.children.entries.length === 5 && this.enemy.children.entries.active === false) {
-    //     enemies.children.entries = [];
-    // }
-           
-
-
+    
 
     for (var i=0; i < enemies.children.entries.length; i++) {
         if (enemies.children.entries[i].active === false) {

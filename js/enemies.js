@@ -30,7 +30,7 @@ var Enemy = new Phaser.Class({
     {   
         // set the t parameter at the start of the path
         this.follower.t = 0;
-        this.hp = 100+(kills*4);
+        this.hp = 125+(kills*6);
         
         // get x and y of the given t point
         path.getPoint(this.follower.t, this.follower.vec);
@@ -58,7 +58,7 @@ var Enemy = new Phaser.Class({
         {
             this.setActive(false);
             this.setVisible(false);
-            life -= 5;
+            life -= 2;
             lifeText.setText("Life: " + life);
             // removeEnemy = enemies.children.entries;
             // removeEnemy.shift();
@@ -88,7 +88,7 @@ var Robert = new Phaser.Class({
     {   
         // set the t parameter at the start of the path
         this.follower.t = 0;
-        this.hp = 500+(kills*5);
+        this.hp = 600+(kills*10);
         
         // get x and y of the given t point
         path.getPoint(this.follower.t, this.follower.vec);
@@ -130,7 +130,7 @@ var Robert = new Phaser.Class({
         {
             this.setActive(false);
             this.setVisible(false);
-            life -= 10;
+            life -= 5;
             lifeText.setText("Life: " + life);
             // removeRobert = roberts.children.entries;
             // removeRobert.shift();
@@ -192,7 +192,7 @@ var Dragon = new Phaser.Class({
        {
            this.setActive(false);
            this.setVisible(false);
-           life -= 20;
+           life -= 10;
            lifeText.setText("Life: " + life);
        }
    }

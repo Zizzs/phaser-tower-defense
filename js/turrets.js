@@ -32,6 +32,7 @@ var Turret = new Phaser.Class({
             addBullet(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
         }
+
         else if(robert) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
             addBullet(this.x, this.y, angle);
@@ -90,39 +91,23 @@ var ArrowTurret = new Phaser.Class({
         var robert = getRobert(this.x, this.y, 700);
         var dragon = getDragon(this.x, this.y, 600);
         
-        
-        if(robert) {
-            var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
-            addArrow(this.x, this.y, angle);
-            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
-        }
-        else if(dragon) {
+        if(dragon) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, dragon.x, dragon.y);
             addArrow(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
         }
+        else if(robert) {
+            var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
+            addArrow(this.x, this.y, angle);
+            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
+        }
+
         else if(enemy) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
             addArrow(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
         }
         
-
-        // if(robert || enemy) {
-        //     var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
-        //     addArrow(this.x, this.y, angle);
-        //     this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
-        // }
-
-        // else if(enemy) {
-        //     var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
-        //     addArrow(this.x, this.y, angle);
-        //     this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
-        // }
-
-
-
-
     },
 
     update: function (time, delta)
@@ -132,9 +117,7 @@ var ArrowTurret = new Phaser.Class({
             this.fire();
             this.nextTic = time + 1000;
         }
-        // if(gameOver== true){
-        //     turret.destroy();
-        // }
+       
     }
 
 });
