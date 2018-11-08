@@ -102,7 +102,7 @@ function preload() {
     this.load.image('towerTwoButton', 'assets/towerTwoButton.png');
     this.load.image('towerThreeButton', 'assets/fastTowerButton.png');
     this.load.image('uibar', 'assets/bottombar.jpg');
-    this.load.image('startButton', 'assets/startbutton.jpg');
+    this.load.image('startButton', 'assets/title.png');
     this.load.image('gameOver', 'assets/gameover.jpg');
     
     // load audio
@@ -162,17 +162,17 @@ function create() {
 
   const turretOneButton = this.add.image(40, 1170, 'towerOneButton');
   turretOneButton.setInteractive();
-  turretOneButton.on('pointerdown', () => { turretButton = true; });
+  turretOneButton.on('pointerdown', () => { turretButton = true; turret2Button = false; turret3Button = false;});
   this.input.on('pointerdown', placeTurret);
 
   const turretTwoButton = this.add.image(120, 1170, 'towerTwoButton');
   turretTwoButton.setInteractive();
-  turretTwoButton.on('pointerdown', () => { turret2Button = true; });
+  turretTwoButton.on('pointerdown', () => { turret2Button = true; turretButton = false; turret3Button = false;});
   this.input.on('pointerdown', placeTurret2);
 
   const turretThreeButton = this.add.image(200, 1170, 'towerThreeButton');
   turretThreeButton.setInteractive();
-  turretThreeButton.on('pointerdown', () => { turret3Button = true; });
+  turretThreeButton.on('pointerdown', () => { turret3Button = true; turret2Button = false; turretButton = false;});
   this.input.on('pointerdown', placeTurret3);
   
   
@@ -192,12 +192,12 @@ function create() {
 
 
     
-    goldText = this.add.text(950, 1150, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
-    lifeText = this.add.text(950 ,30, 'Life: ' + life, {fontSize: '28px', fill: '#FEFE54' });
-    killCounter = this.add.text(320, 40, 'Kills: ' + kills, { fontSize: '28px',fontFamily: 'Impact', fill: '#ffbfbf'});
-    levelText = this.add.text(600, 30, 'Level: ' + level, {fontFamily: 'Impact', fontSize: '28px', fill: '#FEFE54' });
+    goldText = this.add.text(300, 1155, 'Gold: ' + gold, { fontSize: '28px', fill: '#FFD700' });
+    lifeText = this.add.text(1000 ,1155, 'Life: ' + life, {fontSize: '28px', fill: '#000' });
+    killCounter = this.add.text(1300, 1155, 'Kills: ' + kills, { fontSize: '28px',fill: '#000'});
+    levelText = this.add.text(710, 30, 'Level: ' + level, {fontSize: '56px', fill: '#ff8200' });
 
-    const startButton = this.add.image(700, 400, 'startButton');
+    const startButton = this.add.image(800, 600, 'startButton');
     startButton.setInteractive();
     startButton.on('pointerdown', function() {
         startgame = true;
@@ -441,7 +441,22 @@ function update(time, delta) {
     level = Math.ceil(time/40000);
     levelText.setText("Level: " + level);
 
-    
+    this.input.keyboard.on('keydown_A', function(event) {
+        turretButton = true;
+        turret2Button = false;
+        turret3Button = false;
+      });
+      this.input.keyboard.on('keydown_S', function(event) {
+        turret2Button = true;
+        turretButton = false;
+        turret3Button = false;
+      });
+      this.input.keyboard.on('keydown_D', function(event) {
+        turret3Button = true;
+        turretButton = false;
+        turret2Button = false;
+
+      });
     endGame();
 }
 
