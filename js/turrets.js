@@ -166,9 +166,9 @@ var FastTurret = new Phaser.Class({
     
     fire: function() {
         // turret.distance for enemy targeting
-        var enemy = getEnemy(this.x, this.y, 100);
-        var robert = getRobert(this.x, this.y, 100);
-        var dragon = getDragon(this.x, this.y, 100);
+        var enemy = getEnemy(this.x, this.y, 175);
+        var robert = getRobert(this.x, this.y, 175);
+        var dragon = getDragon(this.x, this.y, 175);
 
         if(dragon) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, dragon.x, dragon.y);

@@ -58,7 +58,7 @@ var Enemy = new Phaser.Class({
         {
             this.setActive(false);
             this.setVisible(false);
-            life -= 10;
+            life -= 5;
             lifeText.setText("Life: " + life);
             // removeEnemy = enemies.children.entries;
             // removeEnemy.shift();
@@ -149,7 +149,7 @@ var Dragon = new Phaser.Class({
    {
        Phaser.GameObjects.Image.call(this, scene, 0, 0, 'dragon');
         this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
-       this.hp = 250;
+        this.hp = 500+(kills*2);
    },
     startOnPath: function ()
    {   
@@ -170,7 +170,7 @@ var Dragon = new Phaser.Class({
        if(this.hp <= 0) {
            this.setActive(false);
            this.setVisible(false); 
-           gold += 250;
+           gold += 100;
            goldText.setText('Gold: '+ gold);    
        }
    },

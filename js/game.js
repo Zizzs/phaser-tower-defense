@@ -25,7 +25,7 @@ var dragons;
 var turretButton = false;
 var turret2Button = false;
 var turret3Button = false;
-var gold = 500;
+var gold = 300;
 var goldText;
 var life = 100;
 var lifeText;
@@ -44,7 +44,7 @@ var deathSound;
 
 var ENEMY_SPEED = 1/40000;
 var ROBERT_SPEED = 1/120000;
-var DRAGON_SPEED = 1/80000;
+var DRAGON_SPEED = 1/160000;
 
 
 
@@ -232,7 +232,7 @@ function damageEnemyArrow(enemy, arrow) {
     // only if both enemy and bullet are alive
     if (enemy.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 300;
+        var ARROW_DAMAGE = 250;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -274,7 +274,7 @@ function damageRobertBullet(robert, bullet) {
     // only if both robert and bullet are alive
     if (robert.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 300;
+        var ARROW_DAMAGE = 250;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -313,7 +313,7 @@ function damageDragonBullet(dragon, bullet) {
      // only if both robert and bullet are alive
     if (dragon.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 100;
+        var ARROW_DAMAGE = 250;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -398,7 +398,7 @@ function update(time, delta) {
         }
     }
 
-    if (time > this.nextDragon && dragons.children.entries.length < 5 && startgame ===true)
+    if (time > this.nextDragon && dragons.children.entries.length < 3 && startgame ===true && kills >400)
     {
         var dragon = dragons.get();
         
@@ -409,7 +409,7 @@ function update(time, delta) {
              // place the robert at the start of the path
             dragon.startOnPath();
  
-            this.nextDragon = time + 1750;
+            this.nextDragon = time + (10000/(1+(0.5*kills)));
         }
     }
     // } else if (enemies.children.entries.length === 5 && this.enemy.children.entries.active === false) {

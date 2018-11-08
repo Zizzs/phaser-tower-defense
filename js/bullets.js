@@ -117,7 +117,7 @@ var Bullet = new Phaser.Class({
             this.incY = 0;
             this.lifespan = 0;
 
-            this.speed = Phaser.Math.GetSpeed(700, 1);
+            this.speed = Phaser.Math.GetSpeed(900, 1);
         },
 
         
@@ -135,7 +135,7 @@ var Bullet = new Phaser.Class({
             this.dx = Math.cos(angle);
             this.dy = Math.sin(angle);
 
-            this.lifespan = 300;
+            this.lifespan = 400;
             fastBulletSound.play();
         },
 
