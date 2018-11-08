@@ -25,7 +25,7 @@ var dragons;
 var turretButton = false;
 var turret2Button = false;
 var turret3Button = false;
-var gold = 300;
+var gold = 500;
 var goldText;
 var life = 100;
 var lifeText;

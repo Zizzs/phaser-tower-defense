@@ -26,7 +26,7 @@ var Turret = new Phaser.Class({
         // turret.distance for enemy targeting
         var enemy = getEnemy(this.x, this.y, 200);
         var robert = getRobert(this.x, this.y, 300);
-
+        var dragon = getDragon(this.x, this.y, 300);
         if(enemy) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
             addBullet(this.x, this.y, angle);
@@ -35,6 +35,11 @@ var Turret = new Phaser.Class({
 
         else if(robert) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
+            addBullet(this.x, this.y, angle);
+            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
+        }
+        else if(dragon) {
+            var angle = Phaser.Math.Angle.Between(this.x, this.y, dragon.x, dragon.y);
             addBullet(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
         }
@@ -84,8 +89,14 @@ var ArrowTurret = new Phaser.Class({
         
         var enemy = getEnemy(this.x, this.y, 500);
         var robert = getRobert(this.x, this.y, 500);
+        var dragon = getDragon(this.x, this.y, 500);
         
-        if(robert) {
+        if(dragon) {
+            var angle = Phaser.Math.Angle.Between(this.x, this.y, dragon.x, dragon.y);
+            addArrow(this.x, this.y, angle);
+            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
+        }
+        else if(robert) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
             addArrow(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
@@ -96,6 +107,7 @@ var ArrowTurret = new Phaser.Class({
             addArrow(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
         }
+        
 
         // if(robert || enemy) {
         //     var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
@@ -156,18 +168,25 @@ var FastTurret = new Phaser.Class({
         // turret.distance for enemy targeting
         var enemy = getEnemy(this.x, this.y, 100);
         var robert = getRobert(this.x, this.y, 100);
+        var dragon = getDragon(this.x, this.y, 100);
 
-        if(enemy) {
+        if(dragon) {
+            var angle = Phaser.Math.Angle.Between(this.x, this.y, dragon.x, dragon.y);
+            addBullet(this.x, this.y, angle);
+            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
+        }
+        else if(robert) {
+            var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
+            addBullet(this.x, this.y, angle);
+            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
+        } 
+        else if(enemy) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
             addBullet(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
         }
 
-        else if(robert) {
-            var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
-            addBullet(this.x, this.y, angle);
-            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
-        }
+        
 
     },
     update: function (time, delta)
@@ -202,6 +221,16 @@ function getRobert(x, y, distance) {
     for(var i = 0; i < robertUnits.length; i++) {      
         if(robertUnits[i].active && Phaser.Math.Distance.Between(x, y, robertUnits[i].x, robertUnits[i].y) < distance)
             return robertUnits[i];
+    }
+    return false;
+} 
+
+//aiming turrets at dragons
+function getDragon(x, y, distance) {
+    var dragonUnits = dragons.getChildren();
+    for(var i = 0; i < dragonUnits.length; i++) {      
+        if(dragonUnits[i].active && Phaser.Math.Distance.Between(x, y, dragonUnits[i].x, dragonUnits[i].y) < distance)
+            return dragonUnits[i];
     }
     return false;
 } 
