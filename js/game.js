@@ -162,17 +162,17 @@ function create() {
 
   const turretOneButton = this.add.image(40, 1170, 'towerOneButton');
   turretOneButton.setInteractive();
-  turretOneButton.on('pointerdown', () => { turretButton = true; });
+  turretOneButton.on('pointerdown', () => { turretButton = true; turret2Button = false; turret3Button = false;});
   this.input.on('pointerdown', placeTurret);
 
   const turretTwoButton = this.add.image(120, 1170, 'towerTwoButton');
   turretTwoButton.setInteractive();
-  turretTwoButton.on('pointerdown', () => { turret2Button = true; });
+  turretTwoButton.on('pointerdown', () => { turret2Button = true; turretButton = false; turret3Button = false;});
   this.input.on('pointerdown', placeTurret2);
 
   const turretThreeButton = this.add.image(200, 1170, 'towerThreeButton');
   turretThreeButton.setInteractive();
-  turretThreeButton.on('pointerdown', () => { turret3Button = true; });
+  turretThreeButton.on('pointerdown', () => { turret3Button = true; turret2Button = false; turretButton = false;});
   this.input.on('pointerdown', placeTurret3);
   
   
@@ -441,7 +441,22 @@ function update(time, delta) {
     level = Math.ceil(time/40000);
     levelText.setText("Level: " + level);
 
-    
+    this.input.keyboard.on('keydown_A', function(event) {
+        turretButton = true;
+        turret2Button = false;
+        turret3Button = false;
+      });
+      this.input.keyboard.on('keydown_S', function(event) {
+        turret2Button = true;
+        turretButton = false;
+        turret3Button = false;
+      });
+      this.input.keyboard.on('keydown_D', function(event) {
+        turret3Button = true;
+        turretButton = false;
+        turret2Button = false;
+
+      });
     endGame();
 }
 
