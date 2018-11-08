@@ -95,7 +95,7 @@ function preload() {
     this.load.image('tower', 'assets/tower.png');
     this.load.image('tower2', 'assets/tower2.png');
     this.load.image('tower3', 'assets/fastTower.png');
-    this.load.image('enemy', 'assets/enemy.png');
+    this.load.image('enemy', 'assets/enemy.gif');
     this.load.image('robert', 'assets/robert1.png');
     this.load.image('dragon', 'assets/dragon.png');
     this.load.image('towerOneButton', 'assets/towerOneButton.png');
