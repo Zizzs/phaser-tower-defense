@@ -30,7 +30,7 @@ var Bullet = new Phaser.Class({
             this.dx = Math.cos(angle);
             this.dy = Math.sin(angle);
 
-            this.lifespan = 300;
+            this.lifespan = 550;
             bulletSound.play();
         },
 
@@ -135,7 +135,7 @@ var Bullet = new Phaser.Class({
             this.dx = Math.cos(angle);
             this.dy = Math.sin(angle);
 
-            this.lifespan = 400;
+            this.lifespan = 500;
             fastBulletSound.play();
         },
 

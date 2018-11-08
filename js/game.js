@@ -25,7 +25,7 @@ var dragons;
 var turretButton = false;
 var turret2Button = false;
 var turret3Button = false;
-var gold = 300;
+var gold = 200;
 var goldText;
 var life = 100;
 var lifeText;
@@ -219,7 +219,7 @@ function damageEnemyBullet(enemy, bullet) {
     // only if both enemy and bullet are alive
     if (enemy.active === true && bullet.active === true) {
         // we remove the bullet right away
-        var BULLET_DAMAGE = 50;
+        var BULLET_DAMAGE = 125;
         bullet.setActive(false);
         bullet.setVisible(false);    
         
@@ -232,7 +232,7 @@ function damageEnemyArrow(enemy, arrow) {
     // only if both enemy and bullet are alive
     if (enemy.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 250;
+        var ARROW_DAMAGE = 200;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -258,7 +258,7 @@ function damageRobertBullet(robert, bullet) {
     // only if both robert and bullet are alive
     if (robert.active === true && bullet.active === true) {
         // we remove the bullet right away
-        var BULLET_DAMAGE = 50;
+        var BULLET_DAMAGE = 80;
         bullet.setActive(false);
         bullet.setVisible(false);    
         
@@ -274,7 +274,7 @@ function damageRobertBullet(robert, bullet) {
     // only if both robert and bullet are alive
     if (robert.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 250;
+        var ARROW_DAMAGE = 350;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -301,7 +301,7 @@ function damageDragonBullet(dragon, bullet) {
     // only if both robert and bullet are alive
     if (dragon.active === true && bullet.active === true) {
         // we remove the bullet right away
-        var BULLET_DAMAGE = 50;
+        var BULLET_DAMAGE = 80;
         bullet.setActive(false);
         bullet.setVisible(false);    
         
@@ -326,7 +326,7 @@ function damageDragonFastBullet(dragon, fastbullet) {
     // only if both robert and bullet are alive
     if (dragon.active === true && fastbullet.active === true) {
         // we remove the bullet right away
-        var FASTBULLET_DAMAGE = 70;
+        var FASTBULLET_DAMAGE = 100;
         fastbullet.setActive(false);
         fastbullet.setVisible(false);    
         
@@ -398,7 +398,7 @@ function update(time, delta) {
         }
     }
 
-    if (time > this.nextDragon && dragons.children.entries.length < 3 && startgame ===true && kills >400)
+    if (time > this.nextDragon && dragons.children.entries.length < 1 && startgame ===true && kills >400)
     {
         var dragon = dragons.get();
         
@@ -409,7 +409,7 @@ function update(time, delta) {
              // place the robert at the start of the path
             dragon.startOnPath();
  
-            this.nextDragon = time + (10000/(1+(0.5*kills)));
+            this.nextDragon = time + (10000/(1+(0.3*kills)));
         }
     }
     // } else if (enemies.children.entries.length === 5 && this.enemy.children.entries.active === false) {

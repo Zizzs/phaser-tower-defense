@@ -24,7 +24,7 @@ var Turret = new Phaser.Class({
     
     fire: function() {
         // turret.distance for enemy targeting
-        var enemy = getEnemy(this.x, this.y, 200);
+        var enemy = getEnemy(this.x, this.y, 400);
         var robert = getRobert(this.x, this.y, 300);
         var dragon = getDragon(this.x, this.y, 300);
         if(enemy) {
@@ -32,7 +32,6 @@ var Turret = new Phaser.Class({
             addBullet(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
         }
-
         else if(robert) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
             addBullet(this.x, this.y, angle);
@@ -88,20 +87,20 @@ var ArrowTurret = new Phaser.Class({
         
         
         var enemy = getEnemy(this.x, this.y, 500);
-        var robert = getRobert(this.x, this.y, 500);
-        var dragon = getDragon(this.x, this.y, 500);
+        var robert = getRobert(this.x, this.y, 700);
+        var dragon = getDragon(this.x, this.y, 600);
         
-        if(dragon) {
-            var angle = Phaser.Math.Angle.Between(this.x, this.y, dragon.x, dragon.y);
-            addArrow(this.x, this.y, angle);
-            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
-        }
-        else if(robert) {
+        
+        if(robert) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
             addArrow(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
         }
-
+        else if(dragon) {
+            var angle = Phaser.Math.Angle.Between(this.x, this.y, dragon.x, dragon.y);
+            addArrow(this.x, this.y, angle);
+            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
+        }
         else if(enemy) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
             addArrow(this.x, this.y, angle);
@@ -168,7 +167,7 @@ var FastTurret = new Phaser.Class({
         // turret.distance for enemy targeting
         var enemy = getEnemy(this.x, this.y, 175);
         var robert = getRobert(this.x, this.y, 175);
-        var dragon = getDragon(this.x, this.y, 175);
+        var dragon = getDragon(this.x, this.y, 200);
 
         if(dragon) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, dragon.x, dragon.y);

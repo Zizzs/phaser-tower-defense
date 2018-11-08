@@ -30,7 +30,7 @@ var Enemy = new Phaser.Class({
     {   
         // set the t parameter at the start of the path
         this.follower.t = 0;
-        this.hp = 50+(kills*4);
+        this.hp = 100+(kills*4);
         
         // get x and y of the given t point
         path.getPoint(this.follower.t, this.follower.vec);
@@ -88,7 +88,7 @@ var Robert = new Phaser.Class({
     {   
         // set the t parameter at the start of the path
         this.follower.t = 0;
-        this.hp = 250+(kills*2);
+        this.hp = 500+(kills*5);
         
         // get x and y of the given t point
         path.getPoint(this.follower.t, this.follower.vec);
@@ -130,7 +130,7 @@ var Robert = new Phaser.Class({
         {
             this.setActive(false);
             this.setVisible(false);
-            life -= 20;
+            life -= 10;
             lifeText.setText("Life: " + life);
             // removeRobert = roberts.children.entries;
             // removeRobert.shift();
@@ -149,13 +149,13 @@ var Dragon = new Phaser.Class({
    {
        Phaser.GameObjects.Image.call(this, scene, 0, 0, 'dragon');
         this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
-        this.hp = 500+(kills*2);
+        
    },
     startOnPath: function ()
    {   
        // set the t parameter at the start of the path
        this.follower.t = 0;
-       this.hp = 500;
+       this.hp = 15000+(kills*25);
        
        // get x and y of the given t point
        path.getPoint(this.follower.t, this.follower.vec);
@@ -170,7 +170,7 @@ var Dragon = new Phaser.Class({
        if(this.hp <= 0) {
            this.setActive(false);
            this.setVisible(false); 
-           gold += 100;
+           gold += 50;
            goldText.setText('Gold: '+ gold);    
        }
    },
