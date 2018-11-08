@@ -39,6 +39,7 @@ var bulletSound;
 var arrowSound;
 var fastBulletSound;
 var deathSound;
+var upgrade = 1;
 
 
 
@@ -104,6 +105,7 @@ function preload() {
     this.load.image('uibar', 'assets/bottombar.jpg');
     this.load.image('startButton', 'assets/title.png');
     this.load.image('gameOver', 'assets/gameover.jpg');
+    this.load.image('upgrade', 'assets/upgradeButton.png');
     
     // load audio
     this.load.audio('arrow', '/audio/arrow.mp3');
@@ -175,6 +177,16 @@ function create() {
   turretThreeButton.on('pointerdown', () => { turret3Button = true; turret2Button = false; turretButton = false;});
   this.input.on('pointerdown', placeTurret3);
   
+  const upgradeButton = this.add.image(400, 1170, 'upgrade');
+  upgradeButton.setInteractive();
+      upgradeButton.on('pointerdown', function() {
+        if (gold >= 2000) {
+          upgrade += 1;
+          gold -= 2000;
+          goldText.setText('Gold: '+ gold);
+        }
+  })
+  
   
   bullets = this.physics.add.group({classType: Bullet, runChildUpdate: true});
   arrows = this.physics.add.group({classType: Arrow, runChildUpdate: true});
@@ -192,7 +204,7 @@ function create() {
 
 
     
-    goldText = this.add.text(300, 1155, 'Gold: ' + gold, { fontSize: '28px', fill: '#FFD700' });
+    goldText = this.add.text(700, 1155, 'Gold: ' + gold, { fontSize: '28px', fill: '#FFD700' });
     lifeText = this.add.text(1000 ,1155, 'Life: ' + life, {fontSize: '28px', fill: '#000' });
     killCounter = this.add.text(1300, 1155, 'Kills: ' + kills, { fontSize: '28px',fill: '#000'});
     levelText = this.add.text(710, 30, 'Level: ' + level, {fontSize: '56px', fill: '#ff8200' });
@@ -219,7 +231,7 @@ function damageEnemyBullet(enemy, bullet) {
     // only if both enemy and bullet are alive
     if (enemy.active === true && bullet.active === true) {
         // we remove the bullet right away
-        var BULLET_DAMAGE = 125;
+        var BULLET_DAMAGE = 125 * upgrade;
         bullet.setActive(false);
         bullet.setVisible(false);    
         
@@ -232,7 +244,7 @@ function damageEnemyArrow(enemy, arrow) {
     // only if both enemy and bullet are alive
     if (enemy.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 200;
+        var ARROW_DAMAGE = 200 * upgrade;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -245,7 +257,7 @@ function damageEnemyFastBullet(enemy, fastbullet) {
     // only if both enemy and bullet are alive
     if (enemy.active === true && fastbullet.active === true) {
         // we remove the bullet right away
-        var FASTBULLET_DAMAGE = 70;
+        var FASTBULLET_DAMAGE = 70 * upgrade;
         fastbullet.setActive(false);
         fastbullet.setVisible(false);    
         
@@ -258,7 +270,7 @@ function damageRobertBullet(robert, bullet) {
     // only if both robert and bullet are alive
     if (robert.active === true && bullet.active === true) {
         // we remove the bullet right away
-        var BULLET_DAMAGE = 80;
+        var BULLET_DAMAGE = 80 * upgrade;
         bullet.setActive(false);
         bullet.setVisible(false);    
         
@@ -274,7 +286,7 @@ function damageRobertBullet(robert, bullet) {
     // only if both robert and bullet are alive
     if (robert.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 350;
+        var ARROW_DAMAGE = 350 * upgrade;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -288,7 +300,7 @@ function damageRobertFastBullet(robert, fastbullet) {
     // only if both robert and bullet are alive
     if (robert.active === true && fastbullet.active === true) {
         // we remove the bullet right away
-        var FASTBULLET_DAMAGE = 70;
+        var FASTBULLET_DAMAGE = 70 * upgrade;
         fastbullet.setActive(false);
         fastbullet.setVisible(false);    
         
@@ -301,7 +313,7 @@ function damageDragonBullet(dragon, bullet) {
     // only if both robert and bullet are alive
     if (dragon.active === true && bullet.active === true) {
         // we remove the bullet right away
-        var BULLET_DAMAGE = 80;
+        var BULLET_DAMAGE = 80 * upgrade;
         bullet.setActive(false);
         bullet.setVisible(false);    
         
@@ -313,7 +325,7 @@ function damageDragonBullet(dragon, bullet) {
      // only if both robert and bullet are alive
     if (dragon.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 250;
+        var ARROW_DAMAGE = 250 * upgrade;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -326,7 +338,7 @@ function damageDragonFastBullet(dragon, fastbullet) {
     // only if both robert and bullet are alive
     if (dragon.active === true && fastbullet.active === true) {
         // we remove the bullet right away
-        var FASTBULLET_DAMAGE = 100;
+        var FASTBULLET_DAMAGE = 100 * upgrade;
         fastbullet.setActive(false);
         fastbullet.setVisible(false);    
         
