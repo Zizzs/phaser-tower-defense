@@ -117,7 +117,7 @@ function preload() {
 
 function create() {
     game.scene.pause("main");
-    this.add.image(800,600, 'mapOne');
+    mapOne = this.add.image(800,600, 'mapOne');
   // this graphics element is only for visualization,
   // its not related to our path
   var graphics = this.add.graphics();
@@ -376,9 +376,10 @@ function update(time, delta) {
    
     if(gameOver) {
         const gameOverButton = this.add.image(700, 400, 'gameOver');
+        mapOne.tint = 0xbc0505;
         gameOverButton.setInteractive();
         gameOverButton.on('pointerdown', function() {
-            
+            mapOne.tint = 0xbc0505;
             gameOverButton.destroy();
             location.reload();
         return;
